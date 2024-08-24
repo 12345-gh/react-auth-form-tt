@@ -1,0 +1,21 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`IconWrapper component > matches the snapshot 1`] = `
+<DocumentFragment>
+  <svg
+    class="sc-braxZu gdPqBF"
+    color="#FF5733"
+    data-testid="icon"
+    height="32"
+    viewBox="0 0 24 24"
+    width="32"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <circle
+      cx="16"
+      cy="16"
+      r="12"
+    />
+  </svg>
+</DocumentFragment>
+`;
