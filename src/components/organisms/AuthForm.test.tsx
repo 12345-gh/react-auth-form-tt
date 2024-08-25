@@ -17,7 +17,9 @@ describe("AuthForm component", () => {
         render(<AuthForm />);
 
         expect(screen.getByPlaceholderText("Email")).toBeInTheDocument();
-        expect(screen.getByPlaceholderText("Password")).toBeInTheDocument();
+        expect(
+            screen.getByPlaceholderText("Password with late validation on blur"),
+        ).toBeInTheDocument();
         expect(screen.getByText("Sign Up")).toBeInTheDocument();
     });
 
@@ -70,7 +72,10 @@ describe("AuthForm component", () => {
         render(<FormWithValidation />);
 
         await userEvent.type(screen.getByPlaceholderText("Email"), "test@example.com");
-        await userEvent.type(screen.getByPlaceholderText("Password"), "truePassword123");
+        await userEvent.type(
+            screen.getByPlaceholderText("Password with late validation on blur"),
+            "truePassword123",
+        );
 
         userEvent.click(screen.getByText("Sign Up"));
 

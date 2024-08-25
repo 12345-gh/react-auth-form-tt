@@ -80,7 +80,8 @@ npm run coverage
   * `components/:` React components by Atomic Design.
   * `hooks/:` Custom hooks.
   * `styles/:` CSS-in-JS styles.
-  * `validations/:` Zod schemas for form validation.
+  * `validations/:` Zod schemes for form validation.
+  * `utils/:` Utility functions.
   * `App.tsx:` Main application component.
   * `index.tsx:` Entry point for the React application.
 

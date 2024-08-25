@@ -118,4 +118,74 @@ describe("PasswordInput component", () => {
         await userEvent.click(toggleButton);
         expect(input).toHaveAttribute("type", "password");
     });
+
+    it("applies customError logic", async () => {
+        const FormWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+            const methods = useForm({
+                resolver: zodResolver(registrationSchema),
+                mode: "onBlur",
+                defaultValues: {
+                    password: "",
+                },
+            });
+
+            return <FormProvider {...methods}>{children}</FormProvider>;
+        };
+
+        const customErrorMock = vi.fn((error: boolean) => !error);
+
+        render(
+            <FormWrapper>
+                <PasswordInput
+                    name="password"
+                    customError={customErrorMock}
+                    data-testid="password-input"
+                />
+            </FormWrapper>,
+        );
+
+        const input = screen.getByTestId("password-input");
+
+        await userEvent.type(input, "short");
+        await userEvent.tab();
+
+        await waitFor(() => {
+            expect(customErrorMock).toHaveBeenCalledWith(true);
+        });
+    });
+
+    it("applies customSubmit logic", async () => {
+        const FormWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+            const methods = useForm({
+                resolver: zodResolver(registrationSchema),
+                mode: "onBlur",
+                defaultValues: {
+                    password: "",
+                },
+            });
+
+            return <FormProvider {...methods}>{children}</FormProvider>;
+        };
+
+        const customSubmitMock = vi.fn((value: string) => value.length >= 10);
+
+        render(
+            <FormWrapper>
+                <PasswordInput
+                    name="password"
+                    customSubmit={customSubmitMock}
+                    data-testid="password-input"
+                />
+            </FormWrapper>,
+        );
+
+        const input = screen.getByTestId("password-input");
+
+        await userEvent.type(input, "longPassword123");
+        await userEvent.tab();
+
+        await waitFor(() => {
+            expect(customSubmitMock).toHaveBeenCalledWith("longPassword123");
+        });
+    });
 });
